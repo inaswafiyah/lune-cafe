@@ -3,6 +3,7 @@ import { ArrowUpRight, Camera, Clock3, Coffee, Leaf, MapPin, Phone, Sparkles } f
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { ProductCard } from '@/components/ui/cards-1'
+import { ShimmerButton } from '@/components/ui/shimmer-button'
 
 const drinks = [
   { name: 'Cappuccino', note: 'A bright double shot finished with velvety milk foam.', price: '$5.25', category: 'Coffee', image: 'https://images.unsplash.com/photo-1572442388796-11668a67e53d?auto=format&fit=crop&w=900&q=85' },
@@ -35,7 +36,7 @@ export default function Page() {
           <p className="mb-6 text-xs font-semibold uppercase tracking-[0.24em] text-accent">Coffee, slowly made</p>
           <h1 className="max-w-xl font-serif text-5xl leading-[.96] tracking-[-0.05em] sm:text-7xl lg:text-8xl">A Little Coffee, <span className="text-accent">A Lot of Comfort</span></h1>
           <p className="mt-7 max-w-md text-base leading-7 text-muted-foreground">A warm neighborhood café for unhurried mornings, good conversations, and the perfect cup made just for you.</p>
-          <div className="mt-9 flex flex-wrap items-center gap-5"><Button asChild className="rounded-full bg-accent px-6 text-accent-foreground shadow-none hover:bg-accent/85"><a href="#menu">View Our Menu <ArrowUpRight data-icon="inline-end" /></a></Button><a href="#about" className="text-sm font-semibold underline decoration-accent/50 underline-offset-8 transition-colors hover:text-accent">Our story</a></div>
+          <div className="mt-9 flex flex-wrap items-center gap-5"><ShimmerButton href="#menu" aria-label="View our menu"><span>View Our Menu</span><ArrowUpRight /></ShimmerButton><a href="#about" className="text-sm font-semibold underline decoration-accent/50 underline-offset-8 transition-colors hover:text-accent">Our story</a></div>
           <div className="mt-14 flex items-center gap-3 text-sm text-muted-foreground"><span className="size-2 rounded-full bg-accent" /> Open daily · 7am — 6pm</div>
         </div>
         <div className="reveal reveal-delay-1 relative min-h-[430px] overflow-hidden rounded-[2rem] bg-secondary sm:min-h-[590px]"><Image src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1200&q=90" alt="Fresh coffee being poured into a ceramic cup" fill priority className="object-cover transition-transform duration-700 hover:scale-105" sizes="(max-width: 1024px) 100vw, 50vw" /><div className="absolute bottom-5 left-5 rounded-2xl bg-background/90 px-5 py-4 backdrop-blur-sm"><p className="font-serif text-lg">Made with care</p><p className="mt-1 text-xs text-muted-foreground">Since 2018 · Downtown</p></div></div>
