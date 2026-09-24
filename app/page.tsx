@@ -1,104 +1,56 @@
 import Image from 'next/image'
-import { ArrowUpRight, Camera, Clock3, MapPin, Menu as MenuIcon, Phone } from 'lucide-react'
+import { ArrowUpRight, Camera, Check, Clock3, Coffee, Leaf, MapPin, Phone, Sparkles } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 
 const drinks = [
-  {
-    name: 'Velvet Latte',
-    description: 'Silky espresso, steamed milk, and a little everyday luxury.',
-    price: '$5.50',
-    image: 'https://images.unsplash.com/photo-1541167760496-1628856ab772?auto=format&fit=crop&w=900&q=85',
-  },
-  {
-    name: 'Luné Cold Brew',
-    description: 'Slow-steeped for a smooth, chocolatey finish over ice.',
-    price: '$4.75',
-    image: 'https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&w=900&q=85',
-  },
-  {
-    name: 'Honey Cappuccino',
-    description: 'A bright double shot finished with local honey foam.',
-    price: '$5.25',
-    image: 'https://images.unsplash.com/photo-1572442388796-11668a67e53d?auto=format&fit=crop&w=900&q=85',
-  },
-  {
-    name: 'Matcha Cloud',
-    description: 'Ceremonial matcha, oat milk, and a soft vanilla cloud.',
-    price: '$5.75',
-    image: 'https://images.unsplash.com/photo-1515823064-d6e0c04616a7?auto=format&fit=crop&w=900&q=85',
-  },
-  {
-    name: 'Cinnamon Mocha',
-    description: 'Rich cocoa, espresso, and cinnamon warmth in every sip.',
-    price: '$5.95',
-    image: 'https://images.unsplash.com/photo-1578314675249-a6910f80cc4e?auto=format&fit=crop&w=900&q=85',
-  },
-  {
-    name: 'Citrus Tonic',
-    description: 'Espresso, sparkling tonic, and a fresh twist of orange.',
-    price: '$4.95',
-    image: 'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=900&q=85',
-  },
+  { name: 'Velvet Latte', note: 'Silky espresso, steamed milk, and a little everyday luxury.', price: '$5.50', image: 'https://images.unsplash.com/photo-1541167760496-1628856ab772?auto=format&fit=crop&w=900&q=85' },
+  { name: 'Luné Cold Brew', note: 'Slow-steeped for a smooth, chocolatey finish over ice.', price: '$4.75', image: 'https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&w=900&q=85' },
+  { name: 'Honey Cappuccino', note: 'A bright double shot finished with local honey foam.', price: '$5.25', image: 'https://images.unsplash.com/photo-1572442388796-11668a67e53d?auto=format&fit=crop&w=900&q=85' },
+  { name: 'Matcha Cloud', note: 'Ceremonial matcha, oat milk, and a soft vanilla cloud.', price: '$5.75', image: 'https://images.unsplash.com/photo-1515823064-d6e0c04616a7?auto=format&fit=crop&w=900&q=85' },
+  { name: 'Cinnamon Mocha', note: 'Rich cocoa, espresso, and cinnamon warmth in every sip.', price: '$5.95', image: 'https://images.unsplash.com/photo-1578314675249-a6910f80cc4e?auto=format&fit=crop&w=900&q=85' },
+  { name: 'Citrus Tonic', note: 'Espresso, sparkling tonic, and a fresh twist of orange.', price: '$4.95', image: 'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=900&q=85' },
+]
+
+const reasons = [
+  { icon: Coffee, number: '01', title: 'Small-batch coffee', text: 'We work with thoughtful roasters to bring out the character in every bean.' },
+  { icon: Leaf, number: '02', title: 'Good, simple things', text: 'Seasonal ingredients, house-made touches, and nothing that does not belong.' },
+  { icon: Sparkles, number: '03', title: 'Room to linger', text: 'A calm corner for first sips, deep work, and catching up with someone you love.' },
 ]
 
 export default function Page() {
   return (
-    <main className="min-h-screen bg-[#f8f5ed] text-[#3d2b20]">
-      <header className="border-b border-[#3d2b20]/10 bg-[#f8f5ed]/90 backdrop-blur">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5 lg:px-10">
-          <a href="#home" className="font-serif text-2xl font-semibold tracking-tight text-[#3d2b20]">Luné Café</a>
-          <nav className="hidden items-center gap-8 text-sm font-medium text-[#3d2b20]/70 md:flex" aria-label="Primary navigation">
-            <a className="transition-colors hover:text-[#71816b]" href="#home">Home</a>
-            <a className="transition-colors hover:text-[#71816b]" href="#menu">Menu</a>
-            <a className="transition-colors hover:text-[#71816b]" href="#about">About</a>
-            <a className="transition-colors hover:text-[#71816b]" href="#contact">Contact</a>
+    <main className="min-h-screen overflow-hidden bg-background text-foreground">
+      <header className="sticky top-0 z-20 border-b border-border/70 bg-background/90 backdrop-blur-md">
+        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4 px-6 py-4 lg:px-10">
+          <a href="#home" className="font-serif text-2xl font-semibold tracking-tight">Luné Café</a>
+          <nav className="order-3 flex w-full items-center justify-between gap-5 text-[11px] font-semibold uppercase tracking-[0.16em] text-muted-foreground sm:order-none sm:w-auto sm:gap-7 sm:text-xs" aria-label="Primary navigation">
+            {['Home', 'Menu', 'About', 'Contact'].map((item) => <a key={item} className="transition-colors hover:text-accent" href={`#${item.toLowerCase()}`}>{item}</a>)}
           </nav>
-          <Button asChild className="hidden whitespace-nowrap rounded-full bg-[#3d2b20] px-5 text-sm text-[#f8f5ed] shadow-none hover:bg-[#5a4030] md:inline-flex">
-            <a href="#menu">Order a cup <ArrowUpRight data-icon="inline-end" /></a>
-          </Button>
-          <button className="rounded-full p-2 text-[#3d2b20] md:hidden" aria-label="Open navigation menu"><MenuIcon /></button>
+          <Button asChild className="rounded-full bg-primary px-5 text-primary-foreground shadow-none hover:bg-primary/85"><a href="#menu">Order a cup <ArrowUpRight data-icon="inline-end" /></a></Button>
         </div>
       </header>
 
-      <section id="home" className="mx-auto grid max-w-7xl gap-12 px-6 pb-20 pt-16 lg:grid-cols-[1.05fr_.95fr] lg:items-center lg:px-10 lg:pb-28 lg:pt-24">
-        <div>
-          <p className="mb-6 text-xs font-semibold uppercase tracking-[0.24em] text-[#71816b]">Coffee, slowly made</p>
-          <h1 className="max-w-xl font-serif text-5xl leading-[1.02] tracking-[-0.04em] text-[#3d2b20] sm:text-6xl lg:text-8xl">A Little Coffee, <span className="text-[#71816b]">A Lot of Comfort</span></h1>
-          <p className="mt-7 max-w-md text-base leading-7 text-[#3d2b20]/65">A warm neighborhood café for unhurried mornings, good conversations, and the perfect cup made just for you.</p>
-          <div className="mt-9 flex flex-wrap items-center gap-4">
-            <Button asChild className="whitespace-nowrap rounded-full bg-[#71816b] px-6 text-[#f8f5ed] shadow-none hover:bg-[#5d6d58]"><a href="#menu">View Our Menu <ArrowUpRight data-icon="inline-end" /></a></Button>
-            <a href="#about" className="text-sm font-semibold text-[#3d2b20] underline decoration-[#71816b]/50 underline-offset-8 transition-colors hover:text-[#71816b]">Our story</a>
-          </div>
-          <div className="mt-14 flex items-center gap-3 text-sm text-[#3d2b20]/55"><span className="size-2 rounded-full bg-[#71816b]" /> Open daily · 7am — 6pm</div>
+      <section id="home" className="mx-auto grid max-w-7xl gap-10 px-6 pb-20 pt-16 lg:grid-cols-[1.02fr_.98fr] lg:items-center lg:px-10 lg:pb-28 lg:pt-24">
+        <div className="reveal">
+          <p className="mb-6 text-xs font-semibold uppercase tracking-[0.24em] text-accent">Coffee, slowly made</p>
+          <h1 className="max-w-xl font-serif text-5xl leading-[.96] tracking-[-0.05em] sm:text-7xl lg:text-8xl">A Little Coffee, <span className="text-accent">A Lot of Comfort</span></h1>
+          <p className="mt-7 max-w-md text-base leading-7 text-muted-foreground">A warm neighborhood café for unhurried mornings, good conversations, and the perfect cup made just for you.</p>
+          <div className="mt-9 flex flex-wrap items-center gap-5"><Button asChild className="rounded-full bg-accent px-6 text-accent-foreground shadow-none hover:bg-accent/85"><a href="#menu">View Our Menu <ArrowUpRight data-icon="inline-end" /></a></Button><a href="#about" className="text-sm font-semibold underline decoration-accent/50 underline-offset-8 transition-colors hover:text-accent">Our story</a></div>
+          <div className="mt-14 flex items-center gap-3 text-sm text-muted-foreground"><span className="size-2 rounded-full bg-accent" /> Open daily · 7am — 6pm</div>
         </div>
-        <div className="relative min-h-[460px] overflow-hidden rounded-[2rem] bg-[#d9d2c3] sm:min-h-[600px]">
-          <Image src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1200&q=90" alt="Fresh coffee being poured into a ceramic cup" fill priority className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
-          <div className="absolute bottom-5 left-5 rounded-2xl bg-[#f8f5ed]/90 px-5 py-4 backdrop-blur-sm"><p className="font-serif text-lg">Made with care</p><p className="mt-1 text-xs text-[#3d2b20]/60">Since 2018 · Downtown</p></div>
-        </div>
+        <div className="reveal reveal-delay-1 relative min-h-[430px] overflow-hidden rounded-[2rem] bg-secondary sm:min-h-[590px]"><Image src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1200&q=90" alt="Fresh coffee being poured into a ceramic cup" fill priority className="object-cover transition-transform duration-700 hover:scale-105" sizes="(max-width: 1024px) 100vw, 50vw" /><div className="absolute bottom-5 left-5 rounded-2xl bg-background/90 px-5 py-4 backdrop-blur-sm"><p className="font-serif text-lg">Made with care</p><p className="mt-1 text-xs text-muted-foreground">Since 2018 · Downtown</p></div></div>
       </section>
 
-      <section id="menu" className="bg-[#eee9de] px-6 py-20 lg:px-10 lg:py-28">
-        <div className="mx-auto max-w-7xl">
-          <div className="mb-12 flex flex-col justify-between gap-5 sm:flex-row sm:items-end"><div><p className="mb-4 text-xs font-semibold uppercase tracking-[0.24em] text-[#71816b]">The good stuff</p><h2 className="font-serif text-4xl tracking-[-0.03em] sm:text-5xl">Made for your moment</h2></div><p className="max-w-xs text-sm leading-6 text-[#3d2b20]/60">Thoughtful drinks, seasonal ingredients, and familiar favorites with a Luné twist.</p></div>
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {drinks.map((drink) => <Card key={drink.name} className="group overflow-hidden rounded-3xl border-[#3d2b20]/10 bg-[#f8f5ed] py-0 shadow-none transition-transform duration-300 hover:-translate-y-1">
-              <div className="relative aspect-[4/3] overflow-hidden"><Image src={drink.image} alt={drink.name} fill className="object-cover transition-transform duration-500 group-hover:scale-105" sizes="(max-width: 768px) 100vw, 33vw" /></div>
-              <CardHeader className="gap-2 px-6 pt-6"><div className="flex items-start justify-between gap-4"><CardTitle className="font-serif text-2xl font-medium">{drink.name}</CardTitle><span className="text-sm font-semibold text-[#71816b]">{drink.price}</span></div><CardDescription className="text-sm leading-6 text-[#3d2b20]/60">{drink.description}</CardDescription></CardHeader>
-              <CardContent className="px-6 pb-6"><CardFooter className="border-t border-[#3d2b20]/10 px-0 pt-4"><span className="text-xs font-semibold uppercase tracking-[0.18em] text-[#3d2b20]/45">Luné favorite</span></CardFooter></CardContent>
-            </Card>)}
-          </div>
-        </div>
-      </section>
+      <section id="menu" className="bg-secondary px-6 py-20 lg:px-10 lg:py-28"><div className="mx-auto max-w-7xl"><div className="mb-12 flex flex-col justify-between gap-5 sm:flex-row sm:items-end"><div><p className="mb-4 text-xs font-semibold uppercase tracking-[0.24em] text-accent">The good stuff</p><h2 className="font-serif text-4xl tracking-[-0.04em] sm:text-6xl">A little menu moment</h2></div><p className="max-w-xs text-sm leading-6 text-muted-foreground">Six favorites for the part of your day that deserves a pause.</p></div><div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">{drinks.map((drink, index) => <Card key={drink.name} className={`reveal group overflow-hidden rounded-3xl border-border bg-card py-0 shadow-none transition-all duration-300 hover:-translate-y-2 hover:shadow-lg hover:shadow-primary/5 ${index % 3 === 1 ? 'reveal-delay-1' : ''}`}><div className="relative aspect-[4/3] overflow-hidden"><Image src={drink.image} alt={drink.name} fill className="object-cover transition-transform duration-700 group-hover:scale-105" sizes="(max-width: 768px) 100vw, 33vw" /></div><CardHeader className="gap-2 px-6 pt-6"><div className="flex items-start justify-between gap-4"><CardTitle className="font-serif text-2xl font-medium">{drink.name}</CardTitle><span className="text-sm font-semibold text-accent">{drink.price}</span></div><CardDescription className="text-sm leading-6 text-muted-foreground">{drink.note}</CardDescription></CardHeader><CardContent className="px-6 pb-6"><div className="flex items-center gap-2 border-t border-border pt-4 text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground"><Check /> Luné favorite</div></CardContent></Card>)}</div></div></section>
 
-      <section id="about" className="mx-auto grid max-w-7xl gap-12 px-6 py-20 lg:grid-cols-2 lg:items-center lg:px-10 lg:py-28">
-        <div className="relative min-h-[380px] overflow-hidden rounded-[2rem] bg-[#d9d2c3]"><Image src="https://images.unsplash.com/photo-1445116572660-236099ec97a0?auto=format&fit=crop&w=1200&q=85" alt="Warm interior of Luné Café with tables and plants" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" /></div>
-        <div className="lg:pl-10"><p className="mb-4 text-xs font-semibold uppercase tracking-[0.24em] text-[#71816b]">A place to land</p><h2 className="max-w-lg font-serif text-4xl leading-tight tracking-[-0.03em] sm:text-5xl">Coffee tastes better when you have nowhere else to be.</h2><p className="mt-6 max-w-lg leading-7 text-[#3d2b20]/65">Luné started with a simple idea: make a café that feels like a deep breath. We source with intention, serve with warmth, and leave plenty of room for the little rituals that make a day feel like yours.</p><Button asChild variant="outline" className="mt-8 whitespace-nowrap rounded-full border-[#3d2b20]/20 bg-transparent px-6 text-[#3d2b20] hover:bg-[#eee9de]"><a href="#contact">Come say hello <ArrowUpRight data-icon="inline-end" /></a></Button></div>
-      </section>
+      <section id="about" className="mx-auto grid max-w-7xl gap-12 px-6 py-20 lg:grid-cols-[1.05fr_.95fr] lg:items-center lg:px-10 lg:py-28"><div className="reveal relative min-h-[400px] overflow-hidden rounded-[2rem] bg-secondary sm:min-h-[540px]"><Image src="https://images.unsplash.com/photo-1445116572660-236099ec97a0?auto=format&fit=crop&w=1200&q=85" alt="Warm interior of Luné Café with tables and plants" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" /><span className="absolute right-5 top-5 rounded-full bg-background/90 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-accent">Est. 2018</span></div><div className="reveal reveal-delay-1 lg:pl-10"><p className="mb-4 text-xs font-semibold uppercase tracking-[0.24em] text-accent">A place to land</p><h2 className="max-w-lg font-serif text-4xl leading-tight tracking-[-0.04em] sm:text-6xl">Coffee tastes better when you have nowhere else to be.</h2><p className="mt-6 max-w-lg leading-7 text-muted-foreground">Luné started with a simple idea: make a café that feels like a deep breath. We source with intention, serve with warmth, and leave plenty of room for the little rituals that make a day feel like yours.</p><Button asChild variant="outline" className="mt-8 rounded-full border-primary/20 bg-transparent px-6 hover:bg-secondary"><a href="#contact">Come say hello <ArrowUpRight data-icon="inline-end" /></a></Button></div></section>
 
-      <section id="contact" className="bg-[#3d2b20] px-6 py-20 text-[#f8f5ed] lg:px-10 lg:py-24"><div className="mx-auto max-w-7xl"><div className="grid gap-12 lg:grid-cols-[1fr_1.2fr] lg:items-end"><div><p className="mb-4 text-xs font-semibold uppercase tracking-[0.24em] text-[#b8c5ae]">Drop by anytime</p><h2 className="max-w-md font-serif text-4xl leading-tight tracking-[-0.03em] sm:text-5xl">Your new favorite corner of the neighborhood.</h2></div><div className="grid gap-8 border-t border-[#f8f5ed]/20 pt-8 sm:grid-cols-3 sm:border-t-0 sm:pt-0"><div><Clock3 className="mb-4 text-[#b8c5ae]" /><p className="text-sm font-semibold">Opening hours</p><p className="mt-2 text-sm leading-6 text-[#f8f5ed]/60">Mon — Fri: 7am — 6pm<br />Sat — Sun: 8am — 5pm</p></div><div><MapPin className="mb-4 text-[#b8c5ae]" /><p className="text-sm font-semibold">Find us</p><p className="mt-2 text-sm leading-6 text-[#f8f5ed]/60">18 Willow Street<br />Portland, OR</p></div><div><Phone className="mb-4 text-[#b8c5ae]" /><p className="text-sm font-semibold">Say hello</p><p className="mt-2 text-sm leading-6 text-[#f8f5ed]/60">(503) 555-0188<br />hello@lunecafe.com</p></div></div></div><Button asChild className="mt-12 whitespace-nowrap rounded-full bg-[#b8c5ae] px-6 text-[#3d2b20] shadow-none hover:bg-[#d2dccb]"><a href="mailto:hello@lunecafe.com">Contact Us <ArrowUpRight data-icon="inline-end" /></a></Button></div></section>
+      <section aria-labelledby="why-title" className="border-y border-border bg-background px-6 py-20 lg:px-10 lg:py-24"><div className="mx-auto max-w-7xl"><div className="mb-12 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between"><div><p className="mb-4 text-xs font-semibold uppercase tracking-[0.24em] text-accent">The Luné way</p><h2 id="why-title" className="font-serif text-4xl tracking-[-0.04em] sm:text-6xl">Why choose Luné Café?</h2></div><p className="max-w-xs text-sm leading-6 text-muted-foreground">Not just a coffee stop. A small, good part of your day.</p></div><div className="grid gap-5 md:grid-cols-3">{reasons.map(({ icon: Icon, number, title, text }) => <Card key={number} className="group reveal rounded-3xl border-border bg-secondary p-2 shadow-none transition-all duration-300 hover:-translate-y-1 hover:bg-accent hover:text-accent-foreground"><CardHeader><div className="mb-6 flex items-center justify-between"><Icon className="text-accent group-hover:text-accent-foreground" /><span className="font-serif text-3xl text-accent/60">{number}</span></div><CardTitle className="font-serif text-2xl font-medium">{title}</CardTitle><CardDescription className="leading-6 text-muted-foreground group-hover:text-accent-foreground/75">{text}</CardDescription></CardHeader></Card>)}</div></div></section>
 
-      <footer className="bg-[#3d2b20] px-6 pb-8 text-[#f8f5ed] lg:px-10"><div className="mx-auto flex max-w-7xl flex-col gap-6 border-t border-[#f8f5ed]/20 pt-8 sm:flex-row sm:items-center sm:justify-between"><p className="font-serif text-xl">Luné Café</p><nav className="flex flex-wrap gap-5 text-sm text-[#f8f5ed]/55" aria-label="Footer navigation"><a className="transition-colors hover:text-[#f8f5ed]" href="#home">Home</a><a className="transition-colors hover:text-[#f8f5ed]" href="#menu">Menu</a><a className="transition-colors hover:text-[#f8f5ed]" href="#about">About</a><a className="transition-colors hover:text-[#f8f5ed]" href="#contact">Contact</a><a className="transition-colors hover:text-[#f8f5ed]" href="#contact" aria-label="Luné Café on Instagram"><Camera /></a></nav><p className="text-xs text-[#f8f5ed]/40">© 2025 Luné Café</p></div></footer>
+      <section id="contact" className="bg-primary px-6 py-20 text-primary-foreground lg:px-10 lg:py-24"><div className="mx-auto max-w-7xl"><div className="grid gap-12 lg:grid-cols-[1fr_1.2fr] lg:items-end"><div><p className="mb-4 text-xs font-semibold uppercase tracking-[0.24em] text-accent">Drop by anytime</p><h2 className="max-w-md font-serif text-4xl leading-tight tracking-[-0.04em] sm:text-6xl">Your new favorite corner of the neighborhood.</h2></div><div className="grid gap-8 border-t border-primary-foreground/20 pt-8 sm:grid-cols-3 sm:border-t-0 sm:pt-0"><div><Clock3 className="mb-4 text-accent" /><p className="text-sm font-semibold">Opening hours</p><p className="mt-2 text-sm leading-6 text-primary-foreground/60">Mon — Fri: 7am — 6pm<br />Sat — Sun: 8am — 5pm</p></div><div><MapPin className="mb-4 text-accent" /><p className="text-sm font-semibold">Find us</p><p className="mt-2 text-sm leading-6 text-primary-foreground/60">18 Willow Street<br />Portland, OR</p></div><div><Phone className="mb-4 text-accent" /><p className="text-sm font-semibold">Say hello</p><p className="mt-2 text-sm leading-6 text-primary-foreground/60">(503) 555-0188<br />hello@lunecafe.com</p></div></div></div><Button asChild className="mt-12 rounded-full bg-accent px-6 text-accent-foreground shadow-none hover:bg-accent/85"><a href="mailto:hello@lunecafe.com">Contact Us <ArrowUpRight data-icon="inline-end" /></a></Button></div></section>
+
+      <footer className="bg-primary px-6 pb-8 text-primary-foreground lg:px-10"><div className="mx-auto flex max-w-7xl flex-col gap-6 border-t border-primary-foreground/20 pt-8 sm:flex-row sm:items-center sm:justify-between"><p className="font-serif text-xl">Luné Café</p><nav className="flex flex-wrap gap-5 text-sm text-primary-foreground/55" aria-label="Footer navigation">{['Home', 'Menu', 'About', 'Contact'].map((item) => <a key={item} className="transition-colors hover:text-primary-foreground" href={`#${item.toLowerCase()}`}>{item}</a>)}<a className="transition-colors hover:text-primary-foreground" href="#contact" aria-label="Luné Café on Instagram"><Camera /></a></nav><p className="text-xs text-primary-foreground/40">© 2026 Luné Café</p></div></footer>
     </main>
   )
 }
